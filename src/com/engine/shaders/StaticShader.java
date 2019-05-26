@@ -2,8 +2,8 @@ package com.engine.shaders;
 
 public class StaticShader extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/resources/vertexShader";
-    private static final String FRAGMENT_FILE = "src/resources/fragmentShader";
+    private static final String VERTEX_FILE =   "src/shaders_files/vertexShader";
+    private static final String FRAGMENT_FILE = "src/shaders_files/fragmentShader";
 
     public StaticShader(){
         super(VERTEX_FILE, FRAGMENT_FILE );
