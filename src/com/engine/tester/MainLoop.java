@@ -7,7 +7,7 @@ import com.engine.render.Renderer;
 import org.lwjgl.opengl.Display;
 import com.engine.shaders.StaticShader;
 
-public class MainGameLoop {
+public class MainLoop {
 
 
     public static void main(String[] args){
