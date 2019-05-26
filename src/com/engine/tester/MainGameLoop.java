@@ -5,6 +5,7 @@ import com.engine.render.Loader;
 import com.engine.render.RawModel;
 import com.engine.render.Renderer;
 import org.lwjgl.opengl.Display;
+import com.engine.shader.StaticShader;
 
 public class MainGameLoop {
 
@@ -15,6 +16,7 @@ public class MainGameLoop {
 
         Loader loader = new Loader();
         Renderer renderer = new Renderer();
+        StaticShader shader = new StaticShader();
 
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
@@ -32,11 +34,14 @@ public class MainGameLoop {
 
         while(!Display.isCloseRequested()) {
             renderer.prepare();
+            shader.start();
             renderer.render(model);
-
+            shader.stop();
             Display.update();
         }
 
+        shader.cleanUp();
+        loader.cleanUp();
         Display.destroy();
 
     }
