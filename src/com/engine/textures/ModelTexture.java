@@ -8,7 +8,7 @@ public class ModelTexture {
         this.textureID = id;
     }
 
-    public int getID(){
+    public int getTextureID(){
         return this.textureID;
     }
 

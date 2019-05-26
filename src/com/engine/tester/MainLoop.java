@@ -1,11 +1,13 @@
 package com.engine.tester;
 
+import com.engine.models.RawModel;
+import com.engine.models.TexturedModel;
 import com.engine.render.DisplayManager;
 import com.engine.render.Loader;
-import com.engine.models.RawModel;
 import com.engine.render.Renderer;
-import org.lwjgl.opengl.Display;
 import com.engine.shaders.StaticShader;
+import com.engine.textures.ModelTexture;
+import org.lwjgl.opengl.Display;
 
 public class MainLoop {
 
@@ -30,12 +32,22 @@ public class MainLoop {
                 3,1,2
         };
 
-        RawModel model = loader.loadToVAO(vertices,indices);
+        float[] textureCoord ={
+                0,0,
+                0,1,
+                1,1,
+                1,0
+        };
+
+        RawModel model = loader.loadToVAO(vertices, textureCoord, indices);
+        ModelTexture texture = new ModelTexture(loader.loadTexture("texturePrueba"));
+
+        TexturedModel texturedModel = new TexturedModel(model, texture);
 
         while(!Display.isCloseRequested()) {
             renderer.prepare();
             shader.start();
-            renderer.render(model);
+            renderer.render(texturedModel);
             shader.stop();
             Display.update();
         }
@@ -43,6 +55,6 @@ public class MainLoop {
         shader.cleanUp();
         loader.cleanUp();
         Display.destroy();
-
     }
+
 }
