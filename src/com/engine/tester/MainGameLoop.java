@@ -1,12 +1,10 @@
-package com.engine.Tester;
+package com.engine.tester;
 
 import com.engine.render.DisplayManager;
 import com.engine.render.Loader;
 import com.engine.render.RawModel;
 import com.engine.render.Renderer;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
 
 public class MainGameLoop {
 
