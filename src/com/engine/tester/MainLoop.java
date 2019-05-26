@@ -1,5 +1,6 @@
 package com.engine.tester;
 
+import com.engine.entities.Entity;
 import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
 import com.engine.render.DisplayManager;
@@ -10,6 +11,7 @@ import com.engine.textures.ModelTexture;
 import com.engine.toolbox.EngineMath;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector;
 import org.lwjgl.util.vector.Vector3f;
 
 public class MainLoop {
@@ -48,14 +50,14 @@ public class MainLoop {
         };
 
         RawModel model = loader.loadToVAO(vertices, textureCoord, indices);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("texturePrueba"));
 
-        TexturedModel texturedModel = new TexturedModel(model, texture);
+        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texturePrueba")));
+        Entity entity = new Entity(staticModel, new Vector3f(-1, 0, 0), 0, 0, 0, 1);
 
         while(!Display.isCloseRequested()) {
             renderer.prepare();
             shader.start();
-            renderer.render(texturedModel);
+            renderer.render(entity, shader);
             shader.stop();
             Display.update();
         }
