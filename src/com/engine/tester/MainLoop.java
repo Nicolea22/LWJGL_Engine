@@ -7,7 +7,10 @@ import com.engine.render.Loader;
 import com.engine.render.Renderer;
 import com.engine.shaders.StaticShader;
 import com.engine.textures.ModelTexture;
+import com.engine.toolbox.EngineMath;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 public class MainLoop {
 
@@ -43,6 +46,9 @@ public class MainLoop {
         ModelTexture texture = new ModelTexture(loader.loadTexture("texturePrueba"));
 
         TexturedModel texturedModel = new TexturedModel(model, texture);
+
+        Matrix4f matrix = EngineMath.createTransformationMatrix(new Vector3f(0,0,0), 0, 0, 0, 1);
+        shader.loadTransformationMatrix(matrix);
 
         while(!Display.isCloseRequested()) {
             renderer.prepare();
