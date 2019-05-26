@@ -1,4 +1,4 @@
-package com.engine.shader;
+package com.engine.shaders;
 
 public class StaticShader extends ShaderProgram {
 

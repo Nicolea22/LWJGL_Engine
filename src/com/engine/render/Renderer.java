@@ -1,5 +1,6 @@
 package com.engine.render;
 
+import com.engine.models.RawModel;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;

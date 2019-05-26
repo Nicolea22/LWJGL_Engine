@@ -2,10 +2,10 @@ package com.engine.tester;
 
 import com.engine.render.DisplayManager;
 import com.engine.render.Loader;
-import com.engine.render.RawModel;
+import com.engine.models.RawModel;
 import com.engine.render.Renderer;
 import org.lwjgl.opengl.Display;
-import com.engine.shader.StaticShader;
+import com.engine.shaders.StaticShader;
 
 public class MainGameLoop {
 

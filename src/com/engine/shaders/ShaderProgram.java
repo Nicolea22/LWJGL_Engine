@@ -1,4 +1,4 @@
-package com.engine.shader;
+package com.engine.shaders;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
