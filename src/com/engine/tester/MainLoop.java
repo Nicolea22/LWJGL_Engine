@@ -43,17 +43,20 @@ public class MainLoop {
         };
 
         RawModel model = loader.loadToVAO(vertices, textureCoord, indices);
+
         ModelTexture texture = new ModelTexture(loader.loadTexture("texturePrueba"));
 
         TexturedModel texturedModel = new TexturedModel(model, texture);
 
-        Matrix4f matrix = EngineMath.createTransformationMatrix(new Vector3f(0,0,0), 0, 0, 0, 1);
-        shader.loadTransformationMatrix(matrix);
+        Matrix4f matrix = EngineMath.createTransformationMatrix(new Vector3f(1,0,0), 0, 0, 0, 1);
+
 
         while(!Display.isCloseRequested()) {
             renderer.prepare();
             shader.start();
             renderer.render(texturedModel);
+
+            shader.loadTransformationMatrix(matrix);
             shader.stop();
             Display.update();
         }
