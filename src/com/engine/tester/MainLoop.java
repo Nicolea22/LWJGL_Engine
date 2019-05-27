@@ -8,22 +8,19 @@ import com.engine.render.Loader;
 import com.engine.render.Renderer;
 import com.engine.shaders.StaticShader;
 import com.engine.textures.ModelTexture;
-import com.engine.toolbox.EngineMath;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector;
 import org.lwjgl.util.vector.Vector3f;
 
 public class MainLoop {
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         DisplayManager.createDisplay();
 
         Loader loader = new Loader();
-        Renderer renderer = new Renderer();
         StaticShader shader = new StaticShader();
+        Renderer renderer = new Renderer(shader);
 
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
@@ -37,7 +34,7 @@ public class MainLoop {
                 3,1,2
         };
 
-        float[] textureCoord ={
+        float[] textureCoord = {
                 0,0,
                 0,1,
                 1,1,
@@ -47,11 +44,11 @@ public class MainLoop {
         RawModel model = loader.loadToVAO(vertices, textureCoord, indices);
 
         TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texturePrueba")));
-        Entity entity = new Entity(staticModel, new Vector3f(0, 0, 0), 0, 0, 0, 1);
+        Entity entity = new Entity(staticModel, new Vector3f(0, 0, -1), 0, 0, 0, 1);
 
 
         while(!Display.isCloseRequested()) {
-            entity.increasePosition(0, 0, 0);
+            entity.increasePosition(0, 0, -0.1f);
             entity.increaseRotation(0, 0, 0);
             renderer.prepare();
             shader.start();
@@ -64,5 +61,6 @@ public class MainLoop {
         loader.cleanUp();
         Display.destroy();
     }
+
 
 }
