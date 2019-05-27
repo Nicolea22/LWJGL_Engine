@@ -25,11 +25,6 @@ public class MainLoop {
         Renderer renderer = new Renderer();
         StaticShader shader = new StaticShader();
 
-        Vector3f vector = new Vector3f(0f, 0f, 0);
-        Matrix4f matrix = new Matrix4f(EngineMath.createTransformationMatrix(vector, (float) ((90/180)*Math.PI), 0, 0, 1));
-
-        shader.loadTransformationMatrix(matrix);
-
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
                 -0.5f,-0.5f, 0f,
@@ -52,14 +47,17 @@ public class MainLoop {
         RawModel model = loader.loadToVAO(vertices, textureCoord, indices);
 
         TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texturePrueba")));
-        Entity entity = new Entity(staticModel, new Vector3f(-1, 0, 0), 0, 0, 0, 1);
+        Entity entity = new Entity(staticModel, new Vector3f(0, 0, 0), 0, 0, 0, 1);
+
 
         while(!Display.isCloseRequested()) {
+            entity.increasePosition(0, 0, 0);
+            entity.increaseRotation(0, 0, 0);
             renderer.prepare();
             shader.start();
             renderer.render(entity, shader);
             shader.stop();
-            Display.update();
+            DisplayManager.updatedisplay();
         }
 
         shader.cleanUp();

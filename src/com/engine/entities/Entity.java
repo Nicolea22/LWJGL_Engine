@@ -29,7 +29,7 @@ public class Entity {
     public void increaseRotation(float dx, float dy, float dz){
         this.rotX += dx;
         this.rotY += dy;
-        this.rotZ += dx;
+        this.rotZ += dz;
     }
 
     public TexturedModel getModel() {
