@@ -16,7 +16,7 @@ public class OBJLoader {
     public static RawModel loadObjModel(String fileName, Loader loader){
         FileReader fr = null;
         try {
-            fr = new FileReader(new File("res/" + fileName + ".obj"));
+            fr = new FileReader(new File("resources/models/" + fileName + ".obj"));
 
         } catch (FileNotFoundException e) {
             System.err.println("Could not read the file!");
@@ -25,10 +25,10 @@ public class OBJLoader {
         BufferedReader reader = new BufferedReader(fr);
         String line;
 
-        List<Vector3f> vertices = new ArrayList<>();
-        List<Vector2f> textures = new ArrayList<>();
-        List<Vector3f> normals  = new ArrayList<>();
-        List<Integer>  indices  = new ArrayList<>();
+        List<Vector3f> vertices = new ArrayList<Vector3f>();
+        List<Vector2f> textures = new ArrayList<Vector2f>();
+        List<Vector3f> normals  = new ArrayList<Vector3f>();
+        List<Integer>  indices  = new ArrayList<Integer>();
 
         float[] verticesArray = null;
         float[] normalsArray  = null;
@@ -104,9 +104,9 @@ public class OBJLoader {
 
         Vector2f currentTex = textures.get(Integer.parseInt(vertexData[1]) - 1);
         textureArray[currentVertexDataPointer * 2]     = currentTex.x;
-        textureArray[currentVertexDataPointer * 2 + 1] = currentTex.y;
+        textureArray[currentVertexDataPointer * 2 + 1] = 1 - currentTex.y;
 
-        Vector3f currentNorm = normals.get(Integer.parseInt(vertexData[1]) - 1);
+        Vector3f currentNorm = normals.get(Integer.parseInt(vertexData[2]) - 1);
         normalArray[currentVertexDataPointer * 3]     = currentNorm.x;
         normalArray[currentVertexDataPointer * 3 + 1] = currentNorm.y;
         normalArray[currentVertexDataPointer * 3 + 2] = currentNorm.z;

@@ -6,6 +6,7 @@ import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
 import com.engine.render.DisplayManager;
 import com.engine.render.Loader;
+import com.engine.render.OBJLoader;
 import com.engine.render.Renderer;
 import com.engine.shaders.StaticShader;
 import com.engine.textures.ModelTexture;
@@ -23,88 +24,10 @@ public class MainLoop {
         StaticShader shader = new StaticShader();
         Renderer renderer = new Renderer(shader);
 
-        float[] vertices = {
-                -0.5f,0.5f,-0.5f,
-                -0.5f,-0.5f,-0.5f,
-                0.5f,-0.5f,-0.5f,
-                0.5f,0.5f,-0.5f,
 
-                -0.5f,0.5f,0.5f,
-                -0.5f,-0.5f,0.5f,
-                0.5f,-0.5f,0.5f,
-                0.5f,0.5f,0.5f,
+        RawModel model = OBJLoader.loadObjModel("stall", loader);
 
-                0.5f,0.5f,-0.5f,
-                0.5f,-0.5f,-0.5f,
-                0.5f,-0.5f,0.5f,
-                0.5f,0.5f,0.5f,
-
-                -0.5f,0.5f,-0.5f,
-                -0.5f,-0.5f,-0.5f,
-                -0.5f,-0.5f,0.5f,
-                -0.5f,0.5f,0.5f,
-
-                -0.5f,0.5f,0.5f,
-                -0.5f,0.5f,-0.5f,
-                0.5f,0.5f,-0.5f,
-                0.5f,0.5f,0.5f,
-
-                -0.5f,-0.5f,0.5f,
-                -0.5f,-0.5f,-0.5f,
-                0.5f,-0.5f,-0.5f,
-                0.5f,-0.5f,0.5f
-
-        };
-
-        float[] textureCoords = {
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0
-
-
-        };
-
-        int[] indices = {
-                0,1,3,
-                3,1,2,
-                4,5,7,
-                7,5,6,
-                8,9,11,
-                11,9,10,
-                12,13,15,
-                15,13,14,
-                16,17,19,
-                19,17,18,
-                20,21,23,
-                23,21,22
-
-        };
-
-        RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-
-        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texturePrueba")));
+        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("stallTexture")));
         Entity entity = new Entity(staticModel, new Vector3f(0, 0, -1.5f), 0, 0.1f, 0, 1);
 
         Camera camera = new Camera();
