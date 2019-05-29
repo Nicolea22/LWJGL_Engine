@@ -4,6 +4,7 @@ import com.engine.entities.Entity;
 import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
 import com.engine.shaders.StaticShader;
+import com.engine.textures.ModelTexture;
 import com.engine.toolbox.EngineMath;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.vector.Matrix4f;
@@ -38,7 +39,8 @@ public class Renderer {
                 entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 
         shader.loadTransformationMatrix(transformationMatrix);
-
+        ModelTexture texture = model.getTexture();
+        shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
         drawElements(model, rawModel);
         disableVertexAttribsArray();
     }
@@ -52,6 +54,7 @@ public class Renderer {
     private void disableVertexAttribsArray() {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
         GL30.glBindVertexArray(0);
     }
 
@@ -59,6 +62,7 @@ public class Renderer {
         GL30.glBindVertexArray(rawModel.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
+        GL20.glEnableVertexAttribArray(2);
     }
 
     private void createProjectionMatrix(){
