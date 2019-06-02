@@ -1,8 +1,6 @@
 package com.engine.entities;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
@@ -13,7 +11,7 @@ public class Camera {
     private float roll;
 
     public Camera(){
-        position = new Vector3f(0,0,0);
+        position = new Vector3f(0,5,0);
     }
 
     public void move(){

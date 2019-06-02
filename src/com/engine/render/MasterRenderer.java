@@ -48,6 +48,7 @@ public class MasterRenderer {
         shader.loadViewMatrix(camera);
         entityRenderer.render(entities);
         shader.stop();
+        terrainShader.start();
         terrainShader.loadLight(sun);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
@@ -77,7 +78,7 @@ public class MasterRenderer {
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0, 0.3f, 0.0f, 1);
+        GL11.glClearColor(0.3f, 0.05f, 0.0f, 1);
     }
 
     private void createProjectionMatrix() {

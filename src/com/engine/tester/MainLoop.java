@@ -1,7 +1,6 @@
 package com.engine.tester;
 
 import com.engine.entities.Camera;
-import com.engine.entities.Entity;
 import com.engine.entities.Light;
 import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
@@ -37,12 +36,10 @@ public class MainLoop {
         MasterRenderer renderer = new MasterRenderer();
 
         while(!Display.isCloseRequested()) {
-            renderer.render(light, camera);
-
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
-
             camera.move();
+            renderer.render(light, camera);
             DisplayManager.updatedisplay();
         }
         renderer.cleanUp();
