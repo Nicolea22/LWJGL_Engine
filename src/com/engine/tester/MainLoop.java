@@ -5,10 +5,7 @@ import com.engine.entities.Entity;
 import com.engine.entities.Light;
 import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
-import com.engine.render.DisplayManager;
-import com.engine.render.Loader;
-import com.engine.render.OBJLoader;
-import com.engine.render.Renderer;
+import com.engine.render.*;
 import com.engine.shaders.StaticShader;
 import com.engine.textures.ModelTexture;
 import org.lwjgl.opengl.Display;
@@ -22,40 +19,35 @@ public class MainLoop {
         DisplayManager.createDisplay();
 
         Loader loader = new Loader();
-        StaticShader shader = new StaticShader();
-        Renderer renderer = new Renderer(shader);
 
+        RawModel model = OBJLoader.loadObjModel("stall", loader);
 
-        RawModel model = OBJLoader.loadObjModel("dragon", loader);
-
-        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texturaPlana")));
+        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("stallTexture")));
 
         ModelTexture texture = staticModel.getTexture();
         texture.setShineDamper(10);
-        texture.setReflectivity(1);
+        texture.setReflectivity(0.3f);
 
 
         Entity entity = new Entity(staticModel, new Vector3f(0, -3.5f, -15f), 0, 0.1f, 0, 1);
 
-        Light light = new Light(new Vector3f(0, 20, -10), new Vector3f(1, 0, 1));
-
+        Light light = new Light(new Vector3f(0, 20, -10), new Vector3f(1, 1, 1));
         Camera camera = new Camera();
+
+        MasterRender renderer = new MasterRender();
 
         while(!Display.isCloseRequested()) {
             entity.increasePosition(0, 0, 0);
             entity.increaseRotation(0, 0.4f, 0);
-            renderer.prepare();
-            shader.start();
-            shader.loadLight(light);
-            shader.loadViewMatrix(camera);
+
+            renderer.processEntity(entity);
+
             camera.move();
-            renderer.render(entity, shader);
-            shader.stop();
+            renderer.render(light, camera);
             DisplayManager.updatedisplay();
         }
 
-        shader.cleanUp();
-        loader.cleanUp();
+        renderer.cleanUp();
         Display.destroy();
     }
 

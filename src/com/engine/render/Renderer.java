@@ -9,6 +9,9 @@ import com.engine.toolbox.EngineMath;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.vector.Matrix4f;
 
+import java.util.List;
+import java.util.Map;
+
 public class Renderer {
 
     private static final float FOV = 70;
@@ -16,8 +19,12 @@ public class Renderer {
     private static final float FAR_PLANE = 1000;
 
     private Matrix4f projectionMatrix;
+    private StaticShader shader;
 
     public Renderer(StaticShader shader){
+        this.shader = shader;
+        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glCullFace(GL11.GL_BACK);
         createProjectionMatrix();
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -30,39 +37,48 @@ public class Renderer {
         GL11.glClearColor(0, 0.3f, 0.0f, 1);
     }
 
-    public void render(Entity entity, StaticShader shader){
-        TexturedModel model = entity.getModel();
-        RawModel rawModel = model.getRawModel();
 
-        enableVertexAttribArray(rawModel);
+    public void render(Map<TexturedModel, List<Entity>> entities){
+        for(TexturedModel model:entities.keySet()){
+            prepareTexturedModel(model);
+            List<Entity> batch = entities.get(model);
+            for(Entity entity:batch){
+                prepareInstance(entity);
+                drawElements(model);
+            }
+            unbindTextureModel();
+        }
+    }
+
+    private void prepareInstance(Entity entity){
         Matrix4f transformationMatrix = EngineMath.createTransformationMatrix(entity.getPosition(),
                 entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
-
         shader.loadTransformationMatrix(transformationMatrix);
-        ModelTexture texture = model.getTexture();
-        shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
-        drawElements(model, rawModel);
-        disableVertexAttribsArray();
     }
 
-    private void drawElements(TexturedModel model, RawModel rawModel) {
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getTextureID());
-        GL11.glDrawElements(GL11.GL_TRIANGLES, rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+
+    private void drawElements(TexturedModel model) {
+        GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(),
+                            GL11.GL_UNSIGNED_INT, 0);
+
     }
 
-    private void disableVertexAttribsArray() {
+    private void unbindTextureModel() {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
         GL30.glBindVertexArray(0);
     }
 
-    private void enableVertexAttribArray(RawModel rawModel) {
-        GL30.glBindVertexArray(rawModel.getVaoID());
+    private void prepareTexturedModel(TexturedModel rawModel) {
+        GL30.glBindVertexArray(rawModel.getRawModel().getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
+        ModelTexture texture = rawModel.getTexture();
+        shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, rawModel.getTexture().getTextureID());
     }
 
     private void createProjectionMatrix(){
