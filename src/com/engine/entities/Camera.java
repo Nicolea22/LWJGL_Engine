@@ -3,15 +3,14 @@ package com.engine.entities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Camera {
+public class Camera extends Entity{
 
-    private Vector3f position;
     private float pitch;
     private float yaw;
     private float roll;
 
     public Camera(){
-        position = new Vector3f(0,5,0);
+        super(null, new Vector3f(0,5,0), null, 0);
     }
 
     public void move(){
@@ -37,15 +36,23 @@ public class Camera {
     public float getPitch() {
         return pitch;
     }
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
 
     public float getYaw() {
         return yaw;
+    }
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
     public float getRoll() {
         return roll;
     }
-
+    public void setRoll(float roll) {
+        this.roll = roll;
+    }
 
 
 

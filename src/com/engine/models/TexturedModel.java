@@ -15,7 +15,6 @@ public class TexturedModel {
     public RawModel getRawModel() {
         return rawModel;
     }
-
     public void setRawModel(RawModel rawModel) {
         this.rawModel = rawModel;
     }
@@ -23,7 +22,6 @@ public class TexturedModel {
     public ModelTexture getTexture() {
         return texture;
     }
-
     public void setTexture(ModelTexture texture) {
         this.texture = texture;
     }

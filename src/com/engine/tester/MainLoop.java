@@ -1,5 +1,6 @@
 package com.engine.tester;
 
+import com.engine.constants.Constants;
 import com.engine.entities.Camera;
 import com.engine.entities.Light;
 import com.engine.models.RawModel;
@@ -12,6 +13,8 @@ import com.engine.terrains.Terrain;
 import com.engine.textures.ModelTexture;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
+import static com.engine.entities.EntitiesFactory.getEntity;
+import static com.engine.constants.Constants.Entities;
 
 public class MainLoop {
 
@@ -20,18 +23,16 @@ public class MainLoop {
 
         DisplayManager.createDisplay();
 
-        Loader loader = new Loader();
-        RawModel model = OBJLoader.loadObjModel("stall", loader);
-        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("stallTexture")));
+        RawModel model = OBJLoader.loadObjModel("stall", Loader.getLoader());
+        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(Loader.getLoader().loadTexture("stallTexture")));
 
         ModelTexture texture = staticModel.getTexture();
         texture.setShineDamper(10);
         texture.setReflectivity(0.3f);
-
-        Light light = new Light(new Vector3f(0, 20, -10), new Vector3f(1, 1, 1));
-        Terrain terrain = new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass")));
-        Terrain terrain2 = new Terrain(1, 0, loader, new ModelTexture(loader.loadTexture("grass")));
-        Camera camera = new Camera();
+        Light light = (Light)getEntity(Entities.LIGHT);
+        Terrain terrain = (Terrain)getEntity(Entities.TERRAIN);
+        Terrain terrain2 = (Terrain)getEntity(Entities.TERRAIN);
+        Camera camera = (Camera)getEntity(Entities.CAMERA);
 
         MasterRenderer renderer = new MasterRenderer();
 

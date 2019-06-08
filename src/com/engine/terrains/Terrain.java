@@ -1,26 +1,21 @@
 package com.engine.terrains;
 
+import com.engine.entities.Entity;
 import com.engine.models.RawModel;
+import com.engine.models.TexturedModel;
 import com.engine.render.Loader;
-import com.engine.textures.ModelTexture;
+import org.lwjgl.util.vector.Vector3f;
 
-public class Terrain {
+public class Terrain extends Entity {
     private static final float SIZE = 800;
     private static final int VERTEX_COUNT = 128;
 
-    private float x;
-    private float z;
-    private RawModel model;
-    private ModelTexture texture;
-
-    public Terrain(float x, float z, Loader loader, ModelTexture texture) {
-        this.texture = texture;
-        this.x = x * SIZE;
-        this.z = z * SIZE;
-        this.model = generateTerrain(loader);
+    public Terrain(float x, float z, TexturedModel texture) {
+        super(texture, new Vector3f(x * SIZE, 0, z * SIZE), null, 1);
+        texture.setRawModel(generateTerrain());
     }
 
-    private RawModel generateTerrain(Loader loader){
+    private RawModel generateTerrain(){
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
         float[] normals = new float[count * 3];
@@ -55,38 +50,7 @@ public class Terrain {
                 indices[pointer++] = bottomRight;
             }
         }
-        return loader.loadToVAO(vertices, textureCoords, normals, indices);
+        return Loader.getLoader().loadToVAO(vertices, textureCoords, normals, indices);
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
-    public void setZ(float z) {
-        this.z = z;
-    }
-
-    public RawModel getModel() {
-        return model;
-    }
-
-    public void setModel(RawModel model) {
-        this.model = model;
-    }
-
-    public ModelTexture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(ModelTexture texture) {
-        this.texture = texture;
-    }
 }
