@@ -9,7 +9,8 @@ public class Constants {
         public static final int TERRAIN = 0;
         public static final int LIGHT = 1;
         public static final int CAMERA = 2;
-        public static final int ENTITY = 3;
+        public static final int SOLID = 3;
+        public static final int ENTITY = 4;
     }
 
 }

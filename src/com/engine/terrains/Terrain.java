@@ -1,12 +1,13 @@
 package com.engine.terrains;
 
 import com.engine.entities.Entity;
+import com.engine.entities.SolidEntity;
 import com.engine.models.RawModel;
 import com.engine.models.TexturedModel;
 import com.engine.render.Loader;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Terrain extends Entity {
+public class Terrain extends SolidEntity {
     private static final float SIZE = 800;
     private static final int VERTEX_COUNT = 128;
 

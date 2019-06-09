@@ -5,13 +5,11 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class Entity {
 
-    protected TexturedModel model;
     protected Vector3f position;
     protected Vector3f rotation;
     protected float scale;
 
-    public Entity(TexturedModel model, Vector3f position, Vector3f rotation, float scale) {
-        this.model = model;
+    public Entity(Vector3f position, Vector3f rotation, float scale) {
         this.position = position;
         this.rotation = rotation;
         this.scale = scale;
@@ -29,12 +27,7 @@ public class Entity {
         this.rotation.z += dz;
     }
 
-    public TexturedModel getModel() {
-        return model;
-    }
-    public void setModel(TexturedModel model) {
-        this.model = model;
-    }
+
 
     public Vector3f getPosition() {
         return position;

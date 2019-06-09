@@ -3,6 +3,7 @@ package com.engine.render;
 import com.engine.entities.Camera;
 import com.engine.entities.Entity;
 import com.engine.entities.Light;
+import com.engine.entities.SolidEntity;
 import com.engine.models.TexturedModel;
 import com.engine.shaders.StaticShader;
 import com.engine.shaders.TerrainShader;
@@ -57,7 +58,7 @@ public class MasterRenderer {
         entities.clear();
     }
 
-    public void processEntity(Entity entity){
+    public void processEntity(SolidEntity entity){
         TexturedModel entityModel = entity.getModel();
         List<Entity> batch = entities.get(entityModel);
 

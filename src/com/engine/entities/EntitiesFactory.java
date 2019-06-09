@@ -2,6 +2,7 @@ package com.engine.entities;
 
 import com.engine.models.TexturedModel;
 import com.engine.render.Loader;
+import com.engine.render.OBJLoader;
 import com.engine.terrains.Terrain;
 import com.engine.textures.ModelTexture;
 import org.lwjgl.util.vector.Vector3f;
@@ -22,6 +23,9 @@ public class EntitiesFactory {
             case 2:
                 return new Camera();
             case 3:
+                return new SolidEntity(new TexturedModel(OBJLoader.loadObjModel("stall", Loader.getLoader()),
+                        new ModelTexture(Loader.getLoader().loadTexture("stallTexture"))),
+                        new Vector3f(0, -0.5f, -50), new Vector3f(0, 0, 0), 1);
             default:
                 break;
         }

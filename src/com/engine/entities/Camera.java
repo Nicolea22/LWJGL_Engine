@@ -10,7 +10,7 @@ public class Camera extends Entity{
     private float roll;
 
     public Camera(){
-        super(null, new Vector3f(0,5,0), null, 0);
+        super(new Vector3f(0,3,0), null, 0);
     }
 
     public void move(){
