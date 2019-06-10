@@ -35,7 +35,6 @@ public class Entity {
     public TexturedModel getModel() {
         return model;
     }
-
     public void setModel(TexturedModel model) {
         this.model = model;
     }
@@ -43,7 +42,6 @@ public class Entity {
     public Vector3f getPosition() {
         return position;
     }
-
     public void setPosition(Vector3f position) {
         this.position = position;
     }
@@ -51,7 +49,6 @@ public class Entity {
     public float getRotX() {
         return rotX;
     }
-
     public void setRotX(float rotX) {
         this.rotX = rotX;
     }
@@ -59,7 +56,6 @@ public class Entity {
     public float getRotY() {
         return rotY;
     }
-
     public void setRotY(float rotY) {
         this.rotY = rotY;
     }
@@ -67,7 +63,6 @@ public class Entity {
     public float getRotZ() {
         return rotZ;
     }
-
     public void setRotZ(float rotZ) {
         this.rotZ = rotZ;
     }
@@ -75,10 +70,7 @@ public class Entity {
     public float getScale() {
         return scale;
     }
-
     public void setScale(float scale) {
         this.scale = scale;
     }
-
-
 }

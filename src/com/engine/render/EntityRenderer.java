@@ -45,10 +45,10 @@ public class EntityRenderer {
     private void drawElements(TexturedModel model) {
         GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(),
                 GL11.GL_UNSIGNED_INT, 0);
-
     }
 
     private void unbindTextureModel() {
+        MasterRenderer.enableCulling();
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
@@ -61,6 +61,11 @@ public class EntityRenderer {
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
         ModelTexture texture = rawModel.getTexture();
+
+        if(texture.isHasTransparency()){
+            MasterRenderer.disableCulling();
+        }
+
         shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, rawModel.getTexture().getTextureID());
