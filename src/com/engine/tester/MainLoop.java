@@ -24,7 +24,7 @@ public class MainLoop {
 
         DisplayManager.createDisplay();
 
-        Loader loader = new Loader();
+        Loader loader = Loader.getLoader();
 
         Light light = new Light(new Vector3f(0, 20, -10), new Vector3f(1, 1, 1));
         Terrain terrain = new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass")));
@@ -39,6 +39,7 @@ public class MainLoop {
 
         TexturedModel fern = new TexturedModel(OBJLoader.loadObjModel("fern",loader),
                              new ModelTexture(loader.loadTexture("fern")));
+        fern.getTexture().setFakeLight(true);
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();

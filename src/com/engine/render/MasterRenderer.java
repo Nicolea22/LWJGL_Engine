@@ -50,7 +50,6 @@ public class MasterRenderer {
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
-
     public void render(Light sun, Camera camera){
         prepare();
         shader.start();
@@ -84,11 +83,10 @@ public class MasterRenderer {
         terrains.add(terrain);
     }
 
-
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0.3f, 0.05f, 0.0f, 1);
+        GL11.glClearColor(0f, 0.8f, 0.9f, 1);
     }
 
     private void createProjectionMatrix() {
@@ -109,7 +107,6 @@ public class MasterRenderer {
         projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
         projectionMatrix.m33 = 0;
     }
-
 
     public void cleanUp(){
         shader.cleanUp();

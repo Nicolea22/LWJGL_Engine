@@ -11,11 +11,16 @@ uniform sampler2D textureSample;
 uniform vec3 lightColour;
 uniform float shineDamper;
 uniform float reflectivity;
+uniform bool fakeLight;
 
 
 void main(void){
     vec3 unitNormalVector = normalize(surfaceNormal);
     vec3 unitLightVector  = normalize(toLightVector);
+
+    if(fakeLight){
+        unitNormalVector = vec3(0, unitNormalVector.x, 0);
+    }
 
     float nDot1 = dot(unitNormalVector, unitLightVector);
     float brightness = max(nDot1, 0.2);
